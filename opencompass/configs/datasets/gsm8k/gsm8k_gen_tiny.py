@@ -18,11 +18,8 @@ gsm8k_infer_cfg = dict(
         template=dict(
             round=[
                 # 示例问题：用于few-shot学习
-                # role='HUMAN': 表示这是输入的问题
-                dict(role='HUMAN', prompt="Question: Mark's basketball team...\nLet's think step by step\nAnswer:"),
-                # role='BOT': 表示这是期望的回答格式
-                dict(role='BOT', prompt="Mark's team scores...\nThe answer is 201\n"),
-                # 实际测试问题的模板：{question}会被实际问题替换
+                dict(role='HUMAN', prompt="Question: Mark's basketball team scores 25 2 pointers, 8 3 pointers and 10 free throws. Their opponents score double the 2 pointers but half the 3 pointers and free throws. What's the total number of points scored by both teams added together?\nLet's think step by step\nAnswer:"),
+                dict(role='BOT', prompt="Mark's team scores 25 2 pointers, meaning they scored 25*2= 50 points in 2 pointers.\nHis team also scores 8 3 pointers, meaning they scored 8*3= 24 points in 3 pointers\nThey scored 10 free throws, and free throws count as one point so they scored 10*1=10 points in free throws.\nAll together his team scored 50+24+10= 84 points\nMark's opponents scored double his team's number of 2 pointers, meaning they scored 50*2=100 points in 2 pointers.\nHis opponents scored half his team's number of 3 pointers, meaning they scored 24/2= 12 points in 3 pointers.\nThey also scored half Mark's team's points in free throws, meaning they scored 10/2=5 points in free throws.\nAll together Mark's opponents scored 100+12+5=117 points\nThe total score for the game is both team's scores added together, so it is 84+117=201 points\nThe answer is 201\n"),
                 dict(role='HUMAN', prompt="Question: {question}\nLet's think step by step\nAnswer:"),
             ],
         )),
