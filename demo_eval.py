@@ -18,10 +18,6 @@ from pprint import pprint
 import warnings
 warnings.filterwarnings('ignore')
 
-# 对于 transformers 特别关注的警告，使用多重过滤
-os.environ["TRANSFORMERS_NO_WARNINGS"] = "1"
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
-
 def init_model(model_cfg):
     """初始化模型和分词器"""
     print("\n=== Step 2: 初始化模型 ===")
@@ -147,10 +143,69 @@ Let's solve this step by step:
 def evaluate_results(predictions, dataset):
     """评估结果"""
     print("\n=== Step 5: 评估结果 ===")
+    
+    def extract_answer(text):
+        """从文本中提取最终答案的数字"""
+        import re
+        # 首先尝试匹配 "The answer is X" 格式
+        answer_pattern = r'The answer is[\s]*\$?\\?(?:boxed{)?(\d[\d,]*(?:\.\d+)?)}?\$?\.?$'
+        match = re.search(answer_pattern, text, re.MULTILINE)
+        if match:
+            # 移除数字中的逗号
+            return float(match.group(1).replace(',', ''))
+            
+        # 如果上面的模式没匹配到，则提取所有数字，取最后一个
+        numbers = re.findall(r'-?\d[\d,]*(?:\.\d+)?', text)
+        if numbers:
+            return float(numbers[-1].replace(',', ''))
+        return None
+
+    def is_equal(pred, refer):
+        """比较预测值和参考答案是否相等"""
+        try:
+            # 从预测答案中提取数字
+            pred_num = extract_answer(pred)
+            # 从参考答案中提取数字（在 #### 之后）
+            refer_match = re.search(r'####\s*(\d+)', refer)
+            if refer_match:
+                refer_num = float(refer_match.group(1))
+            else:
+                # 如果没有 #### 格式，则提取所有数字取最后一个
+                numbers = re.findall(r'-?\d[\d,]*(?:\.\d+)?', refer)
+                refer_num = float(numbers[-1].replace(',', ''))
+            
+            if pred_num is not None and abs(pred_num - refer_num) < 1e-6:
+                return True
+        except Exception as e:
+            print(f"警告：答案提取失败 - {str(e)}")
+        return False
+    
+    # 计算准确率
+    correct = 0
+    total = len(predictions)
+    
     for idx, (pred, true) in enumerate(zip(predictions, dataset)):
         print(f"\n样本 {idx + 1}:")
         print(f"预测答案: {pred}")
         print(f"正确答案: {true['answer']}")
+        
+        # 检查答案是否正确
+        is_correct = is_equal(pred, true['answer'])
+        print(f"是否正确: {'✓' if is_correct else '✗'}")
+        
+        # 显示提取到的数字（用于调试）
+        pred_num = extract_answer(pred)
+        print(f"提取的预测数字: {pred_num}")
+        
+        if is_correct:
+            correct += 1
+    
+    # 打印总体准确率
+    accuracy = (correct / total) * 100
+    print(f"\n总体评估结果:")
+    print(f"正确数: {correct}")
+    print(f"总样本数: {total}")
+    print(f"准确率: {accuracy:.2f}%")
 
 def main():
     # === Step 1: 定义配置 ===
@@ -183,7 +238,7 @@ def main():
             input_columns=['question'],
             output_column='answer',
             test_split='test',
-            test_range='[0:2]'  # 只使用前5个样本
+            test_range='[0:5]'  # 只使用前5个样本
         )
     )
     
