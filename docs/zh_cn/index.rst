@@ -72,7 +72,9 @@ OpenCompass 上手路线
    advanced_guides/circular_eval.md
    advanced_guides/contamination_eval.md
    advanced_guides/compassbench_intro.md
+   advanced_guides/compassbench_v2_0.md
    advanced_guides/needleinahaystack_eval.md
+   advanced_guides/objective_judgelm_evaluation.md
 
 .. _工具:
 .. toctree::
@@ -81,12 +83,25 @@ OpenCompass 上手路线
 
    tools.md
 
+.. _学习笔记:
+.. toctree::
+   :maxdepth: 1
+   :caption: 学习笔记
+
+   learning_notes/development_log.md
+   learning_notes/doc_development.md
+   learning_notes/config_system.md
+   learning_notes/framework_design.md
+   learning_notes/evaluation_principle.md
+   learning_notes/best_practices.md
+
 .. _其他说明:
 .. toctree::
    :maxdepth: 1
    :caption: 其他说明
 
    notes/contribution_guide.md
+   notes/news.md
 
 索引与表格
 ==================
