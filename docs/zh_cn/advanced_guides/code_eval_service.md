@@ -58,7 +58,7 @@ telnet your_service_ip_address your_service_port
 
 ## 本地代码评测
 
-模型推理和代码评测服务在同一主机，或者同一局域网中，可以直接进行代码推理及评测。**注意：DS1000暂不支持，请走异地评测**
+模型推理和代码评测服务在同一主机，或者同一局域��中，可以直接进行代码推理及评测。**注意：DS1000暂不支持，请走异地评测**
 
 ### 配置文件
 
@@ -220,3 +220,5 @@ docker run -it -p 5000:5000 -v /local/path/of/code-evaluator:/workspace/code-eva
 cd code-evaluator && pip install -r requirements.txt
 python server.py
 ```
+
+更多细节请参考[安装指南](../get_started/installation.md)

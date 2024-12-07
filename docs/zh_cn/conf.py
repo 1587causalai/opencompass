@@ -17,6 +17,9 @@ import sys
 
 import pytorch_sphinx_theme
 from sphinx.builders.html import StandaloneHTMLBuilder
+from pygments.lexer import RegexLexer, bygroups
+from pygments.token import *
+from sphinx.highlighting import lexers
 
 sys.path.insert(0, os.path.abspath('../../'))
 
@@ -83,7 +86,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'pytorch_sphinx_theme'
+html_theme = 'sphinx_rtd_theme'
 html_theme_path = [pytorch_sphinx_theme.get_html_theme_path()]
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -91,16 +94,15 @@ html_theme_path = [pytorch_sphinx_theme.get_html_theme_path()]
 # documentation.
 # yapf: disable
 html_theme_options = {
-    'menu': [
-        {
-            'name': 'GitHub',
-            'url': 'https://github.com/open-compass/opencompass'
-        },
-    ],
-    # Specify the language of shared menu
-    'menu_lang': 'cn',
-    # Disable the default edit on GitHub
-    'default_edit_on_github': False,
+    'logo_only': True,
+    'prev_next_buttons_location': 'bottom',
+    'style_external_links': False,
+    'style_nav_header_background': '#2980B9',
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+    'navigation_depth': 4,
+    'includehidden': True,
+    'titles_only': False
 }
 # yapf: enable
 
@@ -199,11 +201,11 @@ myst_enable_extensions = ['colon_fence', 'dollarmath']
 # Configuration for intersphinx
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
-    'numpy': ('https://numpy.org/doc/stable', None),
+    # 'numpy': ('https://numpy.org/doc/stable', None),
     'torch': ('https://pytorch.org/docs/stable/', None),
     'mmengine': ('https://mmengine.readthedocs.io/en/latest/', None),
-    'transformers':
-    ('https://huggingface.co/docs/transformers/main/en/', None),
+    # 'transformers':
+    # ('https://huggingface.co/docs/transformers/main/en/', None),
 }
 napoleon_custom_sections = [
     # Custom sections for data elements.
@@ -228,3 +230,67 @@ def builder_inited_handler(app):
 
 def setup(app):
     app.connect('builder-inited', builder_inited_handler)
+
+# 定义简单的语法高亮器
+class PlainLexer(RegexLexer):
+    name = 'plain'
+    aliases = ['plain']
+    filenames = ['*.txt']
+    tokens = {
+        'root': [
+            (r'.*\n', Text),
+            (r'.*', Text),
+        ]
+    }
+
+class JsonlLexer(RegexLexer):
+    name = 'jsonl'
+    aliases = ['jsonl']
+    filenames = ['*.jsonl']
+    tokens = {
+        'root': [
+            (r'.*\n', Text),
+            (r'.*', Text),
+        ]
+    }
+
+class CSVLexer(RegexLexer):
+    name = 'csv'
+    aliases = ['csv']
+    filenames = ['*.csv']
+    tokens = {
+        'root': [
+            (r'.*\n', Text),
+            (r'.*', Text),
+        ]
+    }
+
+class TreeLexer(RegexLexer):
+    name = 'tree'
+    aliases = ['tree']
+    filenames = ['*.tree']
+    tokens = {
+        'root': [
+            (r'.*\n', Text),
+            (r'.*', Text),
+        ]
+    }
+
+class NoteLexer(RegexLexer):
+    name = 'note'
+    aliases = ['note']
+    filenames = ['*.note']
+    tokens = {
+        'root': [
+            (r'.*\n', Text),
+            (r'.*', Text),
+        ]
+    }
+
+# 注册自定义语法高亮器
+lexers['plain'] = PlainLexer()
+lexers['Plain'] = PlainLexer()
+lexers['jsonl'] = JsonlLexer()
+lexers['csv'] = CSVLexer()
+lexers['tree'] = TreeLexer()
+lexers['note'] = NoteLexer()

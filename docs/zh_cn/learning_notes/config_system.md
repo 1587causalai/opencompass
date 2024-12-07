@@ -87,29 +87,25 @@ internlm_model = {
 ### 3.2 动态修改
 在实验过程中经常需要调整参数，OpenCompass 提供了多种方式来动态修改配置：
 
-1. 使用命令行参数
+1. 使用命令行参数（优先级最高）
 ```bash
-# 修改模型参数
+# 修改模型参数（这些参数会覆盖配置文件中的设置）
 python run.py configs/eval_tiny_demo.py \
     --batch-size 4 \
     --max-seq-len 2048 \
     --hf-num-gpus 1  # 注意：使用 hf-num-gpus 而不是 num-gpus
 
-# 修改模型路径
-python run.py configs/eval_tiny_demo.py \
-    --hf-path /path/to/model \
-    --tokenizer-path /path/to/tokenizer
-
-# 更多高级参数
-python run.py configs/eval_tiny_demo.py \
-    --hf-num-gpus 1 \
-    --max-out-len 2048 \
-    --min-out-len 1 \
-    --temperature 0.7 \
-    --top-p 0.8
+# 例如，即使配置文件中设置了 batch_size=1：
+# models = [
+#     dict(
+#         type='HuggingFace',
+#         batch_size=1  # 配置文件中的设置
+#     )
+# ]
+# 命令行参数 --batch-size 4 仍然会生效，最终使用的是 batch_size=4
 ```
 
-2. 通过环境变量
+2. 通过环境变量（优先级次之）
 ```bash
 # 设置环境变量来修改配置
 export OPENCOMPASS_BATCH_SIZE=4
@@ -117,37 +113,36 @@ export OPENCOMPASS_HF_NUM_GPUS=1  # 注意：使用 HF_NUM_GPUS
 python run.py configs/eval_tiny_demo.py
 ```
 
-3. 在配置文件中使用变量
+3. 配置文件设置（优先级最低）
 ```python
 # configs/eval_dynamic.py
 import os
 
+# 配置文件中的设置会被命令行参数和环境变量覆盖
 batch_size = int(os.getenv('BATCH_SIZE', '1'))
-hf_num_gpus = int(os.getenv('HF_NUM_GPUS', '1'))  # 注意：使用 HF_NUM_GPUS
+hf_num_gpus = int(os.getenv('HF_NUM_GPUS', '1'))
 models = [
     dict(
         type='HuggingFace',
         path='internlm/internlm-chat-7b',
-        batch_size=batch_size,
-        num_gpus=hf_num_gpus  # 在配置中使用
+        batch_size=batch_size,  # 可能被命令行参数覆���
+        num_gpus=hf_num_gpus
     )
 ]
 ```
 
-OpenCompass 支持的���要命令行参数包括：
-- `--models`: 指定要评测的模型
-- `--datasets`: 指定要使用的数据集
-- `--batch-size`: 批处理大小
-- `--max-seq-len`: 最大序列长度
-- `--hf-num-gpus`: HuggingFace 模型使用的 GPU 数量
-- `--hf-path`: HuggingFace 模型路径
-- `--tokenizer-path`: 分词器路径
-- `--work-dir`: 工作目录
-- `--max-out-len`: 最大输出长度
-- `--min-out-len`: 最小输出长度
-- `--temperature`: 采样温度
-- `--top-p`: Top-p 采样参数
-- 更多参数可以通过 `python run.py --help` 查看
+### 3.3 参数优先级
+OpenCompass 的参数优先级从高到低为：
+1. 命令行参数（例如：`--batch-size 4`）
+2. 环境变量（例如：`OPENCOMPASS_BATCH_SIZE=4`）
+3. 配置文件中的设置
+
+这种设计允许我们：
+- 在不修改配置文件的情况下快速调整参数
+- 进行临时的实验和调试
+- 在多个实验之间快速切换参数
+- 保持配置文件的稳定性和可复用性
+
 ## 4. 实际应用案例
 
 ### 4.1 评测不同模型
@@ -223,5 +218,3 @@ for model in cfg.models:
 - [OpenCompass配置示例](https://github.com/open-compass/opencompass/tree/main/configs)
 
 
-
-```

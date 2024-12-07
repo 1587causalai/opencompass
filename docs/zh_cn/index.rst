@@ -94,6 +94,7 @@ OpenCompass 上手路线
    learning_notes/framework_design.md
    learning_notes/evaluation_principle.md
    learning_notes/best_practices.md
+   learning_notes/ssh_tunnel_proxy.md
 
 .. _其他说明:
 .. toctree::
