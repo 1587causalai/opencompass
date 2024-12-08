@@ -4,7 +4,16 @@
 本篇文档用于记录学习过程头脑风暴, 以及 git 操作记录. 方便后续回顾.
 
 
-## 2023-12-07
+## 2024-12-08
+
+
+### 1. 添加开发日志文档
+```bash
+git add docs/zh_cn/learning_notes/development_log.md
+git commit -m "docs: add development log to track git operations"
+```
+
+## 2024-12-07
 
 ### 1. 添加配置系统文档
 ```bash
@@ -26,8 +35,10 @@ git commit -m "docs: add development log to track git operations"
 
 我需要云端的机器访问本地的vpn when call for openai api model, 
 
+详细解决方案请参考: [SSH 隧道代理方案](./ssh_tunnel_proxy.md)
 
-### 4. 下一步搞什么鬼呢？
+
+## Brainstorm 下一步搞什么鬼呢？
 
 下一步搞什么鬼呢？我想一下啊。api 模型的评测, 多模态模型的评测?
 

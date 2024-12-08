@@ -90,6 +90,7 @@ OpenCompass 上手路线
 
    learning_notes/development_log.md
    learning_notes/doc_development.md
+   learning_notes/code_eval_tutorial.md
    learning_notes/config_system.md
    learning_notes/framework_design.md
    learning_notes/evaluation_principle.md
