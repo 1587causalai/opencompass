@@ -1,3 +1,23 @@
+"""错误脚本示范
+在开发 API 模型评测功能时，我们经历了以下几个阶段：
+
+1. 初始尝试
+   - 最初尝试修改 `eval_code_passk.py` 来评估 API 模型的代码能力
+   - 遇到了文件位置和路径问题
+   - 参考 `eval_api_qwen.py` 调整了配置结构
+
+2. 简化方案
+   - 决定放弃复杂的代码评测，转向简单的数学数据集评测
+   - 参考 `eval_tiny_demo.py` 的简洁配置方式
+   - 使用 GSM8K 数据集作为测试数据
+
+3. 关键问题解决
+   - API 认证问题：从使用环境变量 `${DEEPSEEK_API_KEY}` 改为直接使用 API key
+   - 配置简化：只保留必要的配置项，提高可读性
+   - 正确引入 `DeepseekAPI` 类：从 `opencompass.models.deepseek_api` 导入
+"""
+
+
 from mmengine.config import read_base
 from opencompass.models import OpenAISDK
 
