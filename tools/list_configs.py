@@ -31,3 +31,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# 运行命令：python tools/list_configs.py deepseek-coder

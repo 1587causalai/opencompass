@@ -7,11 +7,89 @@
 ## 2024-12-08
 
 
-### 1. 添加开发日志文档
+### 1. 添加代码能力评测教程
+
+```bash
+git add docs/zh_cn/learning_notes/code_eval_tutorial.md
+git commit -m "docs: add code evaluation tutorial"
+```
+
+### 2. 添加 api 模型评测教程
+
+- 添加了 `mini_code_eval_deepseek.py` 示例脚本，展示如何使用 API 模型进行代码能力评测
+- 使用 OpenAI SDK 调用 Deepseek API，提供了完整的代码生成和验证流程
+- 包含了错误处理、环境变量配置等最佳实践
+- 脚本位 `docs/zh_cn/learning_notes/scripts/` 目录下
+
+提交更改：
+```bash
+git add docs/zh_cn/learning_notes/scripts/mini_code_eval_deepseek.py
+git add docs/zh_cn/learning_notes/development_log.md
+git commit -m "docs: add API model evaluation example with Deepseek"
+```
+
+### 3. API 模型数据能力评测
+
+在开发 API 模型评测功能时，我们经历了以下几个阶段：
+
+1. 初始尝试
+   - 最初尝试修改 `eval_code_passk.py` 来评估 API 模型的代码能力
+   - 遇到了文件位置和路径问题
+   - 参考 `eval_api_qwen.py` 调整了配置结构
+
+2. 简化方案
+   - 决定放弃复杂的代码评测，转向简单的数学数据集评测
+   - 参考 `eval_tiny_demo.py` 的简洁配置方式
+   - 使用 GSM8K 数据集作为测试数据
+
+3. 关键问题解决
+   - API 认证问题：从使用环境变量 `${DEEPSEEK_API_KEY}` 改为直接使用 API key
+   - 配置简化：只保留必要的配置项，提高可读性
+   - 正确引入 `DeepseekAPI` 类：从 `opencompass.models.deepseek_api` 导入
+
+4. 最终配置
+```python
+from mmengine.config import read_base
+from opencompass.models.deepseek_api import DeepseekAPI
+
+with read_base():
+    from opencompass.configs.datasets.gsm8k.gsm8k_gen_tiny import gsm8k_datasets
+
+models = [
+    dict(
+        type=DeepseekAPI,
+        abbr='deepseek-chat',
+        path='deepseek-chat',
+        key='your-api-key',  # 直接使用 API key
+        url='https://api.deepseek.com/chat/completions',
+        query_per_second=2,
+        max_seq_len=2048,
+        retry=2,
+        max_out_len=100,
+        batch_size=1,
+        system_prompt='You are a helpful math expert. Solve problems step by step.',
+    )
+]
+
+gsm8k_datasets[0]['reader_cfg']['test_range'] = '[0:5]'
+gsm8k_datasets[0]['abbr'] = 'tiny_gsm8k'
+
+datasets = gsm8k_datasets
+work_dir = 'outputs/api_deepseek_math/'
+```
+
+5. 经验总结
+   - 配置文件应该保持简单明了，避免不必要的复杂性
+   - API 认证最好使用直接的方式，避免环境变量解析可能带来的问题
+   - 参考现有的简单示例（如 `eval_tiny_demo.py`）往往比从复杂配置开始更有效
+   - 正确的导入路径和类引用对于避免运行时错误很重要
+
+提交更改：
 ```bash
 git add docs/zh_cn/learning_notes/development_log.md
-git commit -m "docs: add development log to track git operations"
+git commit -m "docs: add API model evaluation development summary"
 ```
+
 
 ## 2024-12-07
 
