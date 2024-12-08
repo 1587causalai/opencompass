@@ -19,14 +19,32 @@ make html
 
 ```bash
 cd docs/zh_cn
+
+# 本地运行使用此命令
 sphinx-autobuild . _build/html --port 8000 --open-browser
-```
+
+# 在远程服务器上运行需使用此命令（允许远程访问）
+sphinx-autobuild . _build/html --port 8000 --host 0.0.0.0
+``````
 
 这种方法的优势：
 - 自动检测文件变化并重新构建
 - 自动刷新浏览器页面
 - 提供本地服务器，可以通过 http://localhost:8000 访问
 - 支持多设备预览（同一局域网内可访问）
+
+如果遇到 `locale.Error: unsupported locale setting` 错误，可以通过设置以下环境变量解决：
+
+```bash
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+
+如果是云端服务器, 可能需要端口转发:
+
+```bash
+# 在本地终端执行以下命令进行端口转发
+ssh -L 8000:localhost:8000 -p 44773 root@ssh.intern-ai.org.cn -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+```
 
 ### 3. VS Code 插件方法
 
