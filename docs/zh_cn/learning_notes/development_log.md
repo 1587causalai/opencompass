@@ -31,8 +31,7 @@ git commit -m "docs: update framework design document"
 大胆搞一个新分钟 doc, 出问题直接删除, 不要犹豫, **速度永远第一位**
 
 ```bash
-git add docs/zh_cn/learning_notes/doc_development.md
-git commit -m "docs: add doc development guide"
+git add . && git commit -m "docs: add doc development guide"
 ```
 
 
