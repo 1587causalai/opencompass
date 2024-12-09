@@ -4,6 +4,33 @@
 本篇文档用于记录学习过程头脑风暴, 以及 git 操作记录. 方便后续回顾.
 
 
+## 2024-12-09
+
+### 1. 重构框架设计文档
+
+1. 重构了框架设计文档 (`docs/zh_cn/learning_notes/framework_design.md`)：
+   - 添加了项目背景和动机说明
+   - 优化了文档结构，使其更具故事性和连贯性
+   - 增加了实际案例和代码示例
+   - 补充了实践经验和最佳实践
+   - 展望了未来发展方向
+
+2. 文档改进：
+   - 参考英文文档 (`docs/en/user_guides/framework_overview.md`) 的结构
+   - 增强了文档的可读性和实用性
+   - 添加了更多具体示例和实践经验
+
+
+```bash
+git add docs/zh_cn/learning_notes/framework_design.md
+git commit -m "docs: update framework design document"
+```
+
+### 2. 图片文档
+
+
+
+
 ## 2024-12-08
 
 
@@ -116,7 +143,7 @@ git commit -m "docs: add development log to track git operations"
 详细解决方案请参考: [SSH 隧道代理方案](./ssh_tunnel_proxy.md)
 
 
-## Brainstorm 下一步搞什么鬼呢？
+## Brainstorm
 
 下一步搞什么鬼呢？我想一下啊。api 模型的评测, 多模态模型的评测?
 
