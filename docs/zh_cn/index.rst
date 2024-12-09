@@ -87,13 +87,13 @@ OpenCompass 上手路线
 .. toctree::
    :maxdepth: 1
    :caption: 学习笔记
-
+   
+   learning_notes/evaluation_principle.md
    learning_notes/development_log.md
    learning_notes/doc_development.md
    learning_notes/code_eval_tutorial.md
    learning_notes/config_system.md
    learning_notes/framework_design.md
-   learning_notes/evaluation_principle.md
    learning_notes/best_practices.md
    learning_notes/ssh_tunnel_proxy.md
 
