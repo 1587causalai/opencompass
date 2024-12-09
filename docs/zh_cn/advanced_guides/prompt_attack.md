@@ -1,7 +1,7 @@
 # 提示词攻击
 
 OpenCompass 支持[PromptBench](https://github.com/microsoft/promptbench)的提示词攻击。其主要想法是评估提示指令的鲁棒性，也就是说，当攻击或修改提示以指导任务时，希望该任务能尽可能表现的像像原始任务一样好。
-
+<!-- 
 ## 环境安装
 
 提示词攻击需要依赖 `PromptBench` 中的组件，所以需要先配置好环境。
@@ -105,4 +105,4 @@ Prompt: Identify whether the given pair of sentences demonstrates entailment or 
 Original prompt: Assess the connection between the following sentences and classify it as 'A. entailment' or 'B. not_entailment'.
 Attacked prompt: b"Assess the attach between the following sentences and sorted it as 'A. entailment' or 'B. not_entailment'."
 Original acc: 59.15%, attacked acc: 40.85%, dropped acc: 18.31%
-```
+``` -->

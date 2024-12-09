@@ -1,5 +1,5 @@
 # 安装
-
+<!-- 
 ## 基础安装
 
 1. 使用Conda准备 OpenCompass 运行环境：
@@ -138,4 +138,4 @@ find . -name "*.zip" -exec unzip "{}" \;
 
 OpenCompass 已经支持了大多数常用于性能比较的数据集，具体支持的数据集列表请直接在 `configs/datasets` 下进行查找。
 
-接下来，你可以阅读[快速上手](./quick_start.md)了解 OpenCompass 的基本用法。
+接下来，你可以阅读[快速上手](./quick_start.md)了解 OpenCompass 的基本用法。 -->

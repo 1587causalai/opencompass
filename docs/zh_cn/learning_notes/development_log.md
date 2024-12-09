@@ -26,7 +26,14 @@ git add docs/zh_cn/learning_notes/framework_design.md
 git commit -m "docs: update framework design document"
 ```
 
-### 2. 图片文档
+### 2. 编译bug
+
+大胆搞一个新分钟 doc, 出问题直接删除, 不要犹豫, **速度永远第一位**
+
+```bash
+git add docs/zh_cn/learning_notes/doc_development.md
+git commit -m "docs: add doc development guide"
+```
 
 
 

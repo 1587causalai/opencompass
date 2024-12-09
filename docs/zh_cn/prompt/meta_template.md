@@ -9,7 +9,7 @@ Meta instruction: You are now a helpful and harmless AI assistant.
 HUMAN: Hi!<eoh>\n
 Bot: Hello! How may I assist you?<eob>\n
 ```
-
+<!-- 
 在评测时，我们也需要按照约定的格式输入问题，模型才能发挥出其最大的性能。
 
 此外， API 模型也存在着类似的情况。一般 API 的对话模型都允许用户在调用时传入历史对话，还有些模型也允许传入 SYSTEM 层级的指令。为了更好地评测 API 模型的能力，我们希望在评测 API 模型时可以尽量让数据更贴合 API 模型本身的多轮对话模板，而并非把所有内容塞进一段指令当中。
@@ -260,4 +260,4 @@ meta_template=dict(
 
 ## 调试
 
-如果需要调试 prompt，建议在准备好配置文件后，使用 `tools/prompt_viewer.py` 脚本预览模型实际接收到的 prompt。阅读[这里](../tools.md#prompt-viewer)了解更多。
+如果需要调试 prompt，建议在准备好配置文件后，使用 `tools/prompt_viewer.py` 脚本预览模型实际接收到的 prompt。阅读[这里](../tools.md#prompt-viewer)了解更多。 -->

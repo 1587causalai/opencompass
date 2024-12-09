@@ -25,7 +25,7 @@ sphinx-autobuild . _build/html --port 8000 --open-browser
 
 # 在远程服务器上运行需使用此命令（允许远程访问）
 sphinx-autobuild . _build/html --port 8000 --host 0.0.0.0
-``````
+```
 
 这种方法的优势：
 - 自动检测文件变化并重新构建
@@ -36,8 +36,8 @@ sphinx-autobuild . _build/html --port 8000 --host 0.0.0.0
 如果遇到 `locale.Error: unsupported locale setting` 错误，可以通过设置以下环境变量解决：
 
 ```bash
-export LC_ALL=C.UTF-8
-export LANG=C.UTF-8
+export LC_ALL=C.UTF-8 && export LANG=C.UTF-8
+```
 
 如果是云端服务器, 可能需要端口转发:
 
@@ -67,8 +67,15 @@ ssh -L 8000:localhost:8000 -p 44773 root@ssh.intern-ai.org.cn -o StrictHostKeyCh
    - 文件编码是否为 UTF-8
    - 图片路径是否正确
    - 是否有未闭合的标签
+   - 交叉引用链接是否正确（使用相对路径）
 
 2. 如果预览服务器启动失败：
    - 检查端口是否被占用
    - 确认是否安装了所需依赖
-   - 检查 Python 环境是否正确 
+   - 检查 Python 环境是否正确
+
+3. 常见警告处理：
+   - `myst.xref_missing`: 检查交叉引用链接是否正确，确保目标文件和锚点存在
+   - 使用相对路径而不是绝对路径进行文档内链接
+   - 确保引用的文件名和路径大小写正确
+   - 对于外部链接，使用完整的 URL（包含 http:// 或 https://）
