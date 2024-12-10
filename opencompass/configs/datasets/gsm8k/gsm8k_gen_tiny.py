@@ -49,7 +49,16 @@ gsm8k_eval_cfg = dict(
 )
 
 # 指定数据集路径
-data_path = '/root/opencompass/data/gsm8k'
+# data_path = './data/gsm8k'
+
+# 获取当前文件所在目录
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 回溯到项目根目录（从 configs/datasets/gsm8k 回溯三级）
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(current_dir))))
+
+# 构建到 data/gsm8k 的路径
+data_path = os.path.join(project_root, 'data', 'gsm8k')
 
 # ===== 完整数据集配置 =====
 gsm8k_datasets = [

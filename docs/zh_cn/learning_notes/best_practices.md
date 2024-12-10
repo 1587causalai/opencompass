@@ -1,5 +1,15 @@
 # OpenCompass 实用工具
 
+## 下载数据集
+
+
+```bash
+# wget https://github.com/open-compass/opencompass/releases/download/0.1.1/OpenCompassData.zip
+# 下载0.1.8数据集
+wget https://github.com/open-compass/opencompass/releases/download/0.1.8.rc1/OpenCompassData-core-20231110.zip
+unzip OpenCompassData-core-20231110.zip
+```
+
 ## Prompt 调试工具
 
 在评测过程中，我们经常需要检查和调试 prompt。OpenCompass 提供了便捷的 prompt 查看工具，可以帮助我们直观地了解模型实际接收到的输入内容。
